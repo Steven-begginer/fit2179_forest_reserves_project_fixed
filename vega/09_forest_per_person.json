@@ -1,0 +1,90 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 430,
+  "data": {
+    "url": "data/forest_population_2021.csv"
+  },
+  "title": {
+    "text": "Forest reserve area per 1,000 people",
+    "subtitle": "This normalises forest reserves by population to make the comparison more public-facing."
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 3
+  },
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "sort": "-x",
+      "title": null
+    },
+    "x": {
+      "field": "forest_ha_per_1000_people",
+      "type": "quantitative",
+      "title": "Forest reserve area (ha per 1,000 people)"
+    },
+    "color": {
+      "field": "forest_ha_per_1000_people",
+      "type": "quantitative",
+      "legend": null,
+      "scale": {
+        "scheme": "tealblues"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal"
+      },
+      {
+        "field": "forest_ha_per_1000_people",
+        "type": "quantitative",
+        "format": ".1f",
+        "title": "ha per 1,000 people"
+      },
+      {
+        "field": "forest_area_2021",
+        "type": "quantitative",
+        "format": ",.0f",
+        "title": "Forest reserve area (ha)"
+      },
+      {
+        "field": "pop",
+        "type": "quantitative",
+        "format": ",.0f",
+        "title": "Population"
+      }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "gridColor": "#e8edf0",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "title": {
+      "font": "Inter, Arial",
+      "fontSize": 18,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#0f172a",
+      "subtitleFont": "Inter, Arial",
+      "subtitleColor": "#64748b",
+      "subtitleFontSize": 12
+    }
+  }
+}

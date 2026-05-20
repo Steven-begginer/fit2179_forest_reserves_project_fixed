@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 450,
+  "data": {
+    "url": "data/state_town_coordinates.csv"
+  },
+  "title": {
+    "text": "Geographic distribution of towns in Malaysia",
+    "subtitle": "Point map based on latitude and longitude from the town coordinate dataset."
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [
+      109.5,
+      4.2
+    ],
+    "scale": 1450
+  },
+  "mark": {
+    "type": "circle",
+    "filled": true,
+    "opacity": 0.55,
+    "size": 18
+  },
+  "encoding": {
+    "longitude": {
+      "field": "Lon",
+      "type": "quantitative"
+    },
+    "latitude": {
+      "field": "Lat",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "States_clean",
+      "type": "nominal",
+      "legend": {
+        "title": "State"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Town",
+        "type": "nominal"
+      },
+      {
+        "field": "District",
+        "type": "nominal"
+      },
+      {
+        "field": "States_clean",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "Lat",
+        "type": "quantitative",
+        "format": ".3f"
+      },
+      {
+        "field": "Lon",
+        "type": "quantitative",
+        "format": ".3f"
+      }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "gridColor": "#e8edf0",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "title": {
+      "font": "Inter, Arial",
+      "fontSize": 18,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#0f172a",
+      "subtitleFont": "Inter, Arial",
+      "subtitleColor": "#64748b",
+      "subtitleFontSize": 12
+    }
+  }
+}

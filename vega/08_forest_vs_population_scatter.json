@@ -1,0 +1,90 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 390,
+  "data": {
+    "url": "data/forest_population_2021.csv"
+  },
+  "title": {
+    "text": "Do more populated states also hold more forest reserve area?",
+    "subtitle": "Each dot represents one Malaysian state or federal territory."
+  },
+  "mark": {
+    "type": "circle",
+    "filled": true,
+    "size": 120,
+    "opacity": 0.75,
+    "stroke": "white",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "x": {
+      "field": "population_million",
+      "type": "quantitative",
+      "title": "Population (million people)"
+    },
+    "y": {
+      "field": "forest_area_million_ha_2021",
+      "type": "quantitative",
+      "title": "Forest reserve area in 2021 (million ha)"
+    },
+    "color": {
+      "field": "state",
+      "type": "nominal",
+      "legend": null
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal"
+      },
+      {
+        "field": "pop",
+        "type": "quantitative",
+        "format": ",.0f",
+        "title": "Population"
+      },
+      {
+        "field": "forest_area_2021",
+        "type": "quantitative",
+        "format": ",.0f",
+        "title": "Forest reserve area (ha)"
+      },
+      {
+        "field": "forest_ha_per_1000_people",
+        "type": "quantitative",
+        "format": ".1f",
+        "title": "ha per 1,000 people"
+      }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "gridColor": "#e8edf0",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "title": {
+      "font": "Inter, Arial",
+      "fontSize": 18,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#0f172a",
+      "subtitleFont": "Inter, Arial",
+      "subtitleColor": "#64748b",
+      "subtitleFontSize": 12
+    }
+  }
+}

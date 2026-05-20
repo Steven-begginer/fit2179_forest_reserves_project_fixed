@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Changing Map of Malaysia’s Forest Reserves</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@3.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@3.0.0/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="eyebrow">FIT2179 Data Visualisation 2</p>
+      <h1>The Changing Map of Malaysia’s Forest Reserves</h1>
+      <p class="lead">A story-driven visualisation about how Malaysia’s forest reserve areas changed from 2003 to 2021, why state-level differences matter, and how these patterns connect with population and rainfall/flood context.</p>
+      <div class="hero-cards pure-g">
+        <div class="pure-u-1 pure-u-md-1-3"><div class="stat-card"><span class="stat-label">Domain</span><strong>Environmental protection</strong></div></div>
+        <div class="pure-u-1 pure-u-md-1-3"><div class="stat-card"><span class="stat-label">Audience</span><strong>General Malaysian public</strong></div></div>
+        <div class="pure-u-1 pure-u-md-1-3"><div class="stat-card"><span class="stat-label">Main need</span><strong>Make state-level forest change visible</strong></div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro panel">
+      <h2>Why this visualisation?</h2>
+      <p>National totals can hide regional differences. This webpage uses maps and diagrams to show which states hold the largest forest reserves, which states gained or lost protected forest area, and why these changes deserve public attention.</p>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">01</span><h2>National overview</h2><p>Start with the big picture: Malaysia’s total forest reserve area over time.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><p class="data-note"><strong>Data note:</strong> 2010 and 2011 national forest reserve values are unavailable in the source data, so they are excluded from the trend line rather than treated as zero.</p>
+          <div id="chart1" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">02</span><h2>Latest state ranking</h2><p>Some states naturally dominate the total area, so the state ranking gives a clear baseline.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart2" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel highlight">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">03</span><h2>Where did forest reserves change most?</h2><p>This is the key chart for the story: it separates states with reserve gains from states with reserve losses.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart3" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">04</span><h2>Before and after</h2><p>The slope chart compares each state directly between 2003 and 2021.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart4" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">05</span><h2>Long-term state patterns</h2><p>The heatmap compresses many state-year values into one overview.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart5" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel map-panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">06</span><h2>A geographic view</h2><p>This point map uses town latitude and longitude values to provide geographic context for Malaysia.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart6" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">07</span><h2>Population context</h2><p>Forest reserve change is easier to understand when we also see where people are concentrated.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart7" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">08</span><h2>Forest area and population</h2><p>This comparison helps reveal whether states with larger populations also hold larger forest reserve areas.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart8" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">09</span><h2>Forest reserve per person</h2><p>Normalising by population makes the story more relatable to a general audience.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart9" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">10</span><h2>Rainfall and flood context</h2><p>This chart adds environmental context. It does not prove that forest reserve change causes floods.</p></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart10" class="chart-box"></div></div>
+    </section>
+
+    <section class="panel conclusion">
+      <h2>Key takeaway</h2>
+      <p>Malaysia’s forest reserve story is uneven. A national trend is useful, but the state-level view reveals the real geography of forest protection: where reserve areas are concentrated, where they changed most, and how these patterns relate to people and environmental pressure.</p>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Author:</strong> Steven &nbsp; | &nbsp; <strong>Date:</strong> 2026</p>
+      <p><strong>Data files used:</strong> forest_reserve.csv, forest_reserve_state.csv, population.csv, state_town_coordinates.csv, flood_rainfall_state_year.csv.</p>
+      <p><strong>Note:</strong> Acknowledge the original dataset sources and any AI assistance in your final submission.</p>
+    </footer>
+  </main>
+  <script src="js/main.js"></script>
+</body>
+</html>

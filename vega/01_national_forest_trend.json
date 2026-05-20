@@ -1,0 +1,89 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "National forest reserve area trend in Malaysia.",
+  "width": "container",
+  "height": 330,
+  "data": {
+    "url": "data/forest_reserve.csv"
+  },
+  "title": {
+    "text": "Malaysia’s total forest reserve area, 2003–2021",
+    "subtitle": "Area is shown in million hectares."
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": true,
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": "Year"
+        },
+        "y": {
+          "field": "area_million_ha",
+          "type": "quantitative",
+          "title": "Forest reserve area (million ha)",
+          "scale": {
+            "zero": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "ordinal"
+          },
+          {
+            "field": "area",
+            "type": "quantitative",
+            "format": ",.0f",
+            "title": "Area (ha)"
+          },
+          {
+            "field": "area_million_ha",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Area (million ha)"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "gridColor": "#e8edf0",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "title": {
+      "font": "Inter, Arial",
+      "fontSize": 18,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#0f172a",
+      "subtitleFont": "Inter, Arial",
+      "subtitleColor": "#64748b",
+      "subtitleFontSize": 12
+    }
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum.area_million_ha) && datum.area_million_ha > 0"
+    }
+  ]
+}

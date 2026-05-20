@@ -1,0 +1,92 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 410,
+  "data": {
+    "url": "data/flood_rainfall_state_year.csv"
+  },
+  "title": {
+    "text": "Rainfall and flood context, 2000–2010",
+    "subtitle": "State codes are used because the flood dataset does not include state names. This is environmental context, not proof of causation."
+  },
+  "mark": {
+    "type": "rect"
+  },
+  "encoding": {
+    "x": {
+      "field": "YEAR",
+      "type": "ordinal",
+      "title": "Year"
+    },
+    "y": {
+      "field": "STATE_CODE",
+      "type": "nominal",
+      "title": "State code"
+    },
+    "color": {
+      "field": "annual_rainfall_mean",
+      "type": "quantitative",
+      "title": "Mean annual rainfall",
+      "scale": {
+        "scheme": "blues"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "STATE_CODE",
+        "type": "nominal",
+        "title": "State code"
+      },
+      {
+        "field": "YEAR",
+        "type": "ordinal"
+      },
+      {
+        "field": "annual_rainfall_mean",
+        "type": "quantitative",
+        "format": ".1f",
+        "title": "Mean annual rainfall"
+      },
+      {
+        "field": "flood_rate_percent",
+        "type": "quantitative",
+        "format": ".1f",
+        "title": "Flood records (%)"
+      },
+      {
+        "field": "district_records",
+        "type": "quantitative",
+        "title": "Records"
+      }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "gridColor": "#e8edf0",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "title": {
+      "font": "Inter, Arial",
+      "fontSize": 18,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#0f172a",
+      "subtitleFont": "Inter, Arial",
+      "subtitleColor": "#64748b",
+      "subtitleFontSize": 12
+    }
+  }
+}
