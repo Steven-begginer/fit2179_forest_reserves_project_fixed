@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Changing Map of Malaysia’s Forest Reserves</title>
+  <title>The Changing Map of Malaysia's Forest Reserves</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/purecss@3.0.0/build/pure-min.css">
   <link rel="stylesheet" href="https://unpkg.com/purecss@3.0.0/build/grids-responsive-min.css">
   <link rel="stylesheet" href="css/style.css" />
@@ -18,13 +18,9 @@
   <header class="hero">
     <div class="container">
       <p class="eyebrow">FIT2179 Data Visualisation 2</p>
-      <h1>The Changing Map of Malaysia’s Forest Reserves</h1>
-      <p class="lead">A story-driven visualisation about how Malaysia’s forest reserve areas changed from 2003 to 2021, why state-level differences matter, and how these patterns connect with population and rainfall/flood context.</p>
-      <div class="hero-cards pure-g">
-        <div class="pure-u-1 pure-u-md-1-3"><div class="stat-card"><span class="stat-label">Domain</span><strong>Environmental protection</strong></div></div>
-        <div class="pure-u-1 pure-u-md-1-3"><div class="stat-card"><span class="stat-label">Audience</span><strong>General Malaysian public</strong></div></div>
-        <div class="pure-u-1 pure-u-md-1-3"><div class="stat-card"><span class="stat-label">Main need</span><strong>Make state-level forest change visible</strong></div></div>
-      </div>
+      <h1>The Changing Map of Malaysia's Forest Reserves</h1>
+      <p class="lead">A story-driven visualisation about how Malaysia's forest reserve areas changed from 2003 to 2021, why state-level differences matter, and how these patterns connect with population and rainfall/flood context.</p>
+
     </div>
   </header>
 
@@ -35,66 +31,67 @@
     </section>
 
     <section class="chart-section pure-g panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">01</span><h2>National overview</h2><p>Start with the big picture: Malaysia’s total forest reserve area over time.</p></div>
-      <div class="pure-u-1 pure-u-lg-2-3"><p class="data-note"><strong>Data note:</strong> 2010 and 2011 national forest reserve values are unavailable in the source data, so they are excluded from the trend line rather than treated as zero.</p>
-          <div id="chart1" class="chart-box"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">01</span><h2>National overview</h2><ul><li>Peaked in <strong>2009</strong> at <strong>13.12 M ha</strong></li><li>Fell sharply to a low of <strong>12.32 M ha</strong> in <strong>2019</strong></li><li>A net loss of <strong>~0.8 M ha</strong> over the decade</li></ul></div>
+        <div class="pure-u-1 pure-u-lg-2-3"><div id="chart1" class="chart-box"></div></div>
     </section>
 
     <section class="chart-section pure-g panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">02</span><h2>Latest state ranking</h2><p>Some states naturally dominate the total area, so the state ranking gives a clear baseline.</p></div>
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">02</span><h2>Forest coverage across Malaysian states (2021)</h2><ul><li><strong>Sabah leads</strong> with 48.5% of its state land under forest reserve, followed by Perak (46.8%) and Pahang (44.1%) &#8212; all topping 40%</li><li><strong>Urban and small states lag far behind</strong> &#8212; Melaka (3.0%), Pulau Pinang (5.0%), and W.P. Kuala Lumpur (0.3%) have almost no forest reserve relative to their land area</li></ul></div>
       <div class="pure-u-1 pure-u-lg-2-3"><div id="chart2" class="chart-box"></div></div>
     </section>
 
-    <section class="chart-section pure-g panel highlight">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">03</span><h2>Where did forest reserves change most?</h2><p>This is the key chart for the story: it separates states with reserve gains from states with reserve losses.</p></div>
-      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart3" class="chart-box"></div></div>
-    </section>
-
     <section class="chart-section pure-g panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">04</span><h2>Before and after</h2><p>The slope chart compares each state directly between 2003 and 2021.</p></div>
-      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart4" class="chart-box"></div></div>
-    </section>
-
-    <section class="chart-section pure-g panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">05</span><h2>Long-term state patterns</h2><p>The heatmap compresses many state-year values into one overview.</p></div>
-      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart5" class="chart-box"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">03</span><h2>Forest reserve composition over time</h2><ul><li><strong>Sarawak's decline drove national losses</strong> - shrank from 4.84 M ha to 3.96 M ha (2003-2021), accounting for nearly all of Malaysia's total reduction.</li><li><strong>As Sarawak shrank, Sabah's share rose</strong> - Sabah's band now nearly equals Sarawak's, reflecting a gradual shift in which state dominates the total.</li></ul></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart13" class="chart-box"></div></div>
     </section>
 
     <section class="chart-section pure-g panel map-panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">06</span><h2>A geographic view</h2><p>This point map uses town latitude and longitude values to provide geographic context for Malaysia.</p></div>
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">04</span><h2>Which states gained or lost forest?</h2><ul><li><strong>Kelantan held steady</strong> - virtually unchanged at 0.0% over 2003-2021.</li><li><strong>Sarawak dropped sharply</strong> - down 18.0%, the largest loss of any state by far.</li><li><strong>Perak and W.P. Kuala Lumpur gained the most</strong> - up +11.6% and +11.5% respectively.</li></ul></div>
       <div class="pure-u-1 pure-u-lg-2-3"><div id="chart6" class="chart-box"></div></div>
     </section>
 
     <section class="chart-section pure-g panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">07</span><h2>Population context</h2><p>Forest reserve change is easier to understand when we also see where people are concentrated.</p></div>
-      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart7" class="chart-box"></div></div>
-    </section>
-
-    <section class="chart-section pure-g panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">08</span><h2>Forest area and population</h2><p>This comparison helps reveal whether states with larger populations also hold larger forest reserve areas.</p></div>
-      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart8" class="chart-box"></div></div>
-    </section>
-
-    <section class="chart-section pure-g panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">09</span><h2>Forest reserve per person</h2><p>Normalising by population makes the story more relatable to a general audience.</p></div>
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">05</span><h2>Forest reserve per person</h2><ul><li><strong>Sarawak towers above all</strong> - 1,408 ha per 1,000 people, over 1.5x the next highest (Pahang 946, Sabah 914).</li><li><strong>Urban states have near zero</strong> - Selangor (38), Melaka (6), Pulau Pinang (3), and W.P. KL (0.04) reflect dense populations with virtually no reserve per person.</li></ul></div>
       <div class="pure-u-1 pure-u-lg-2-3"><div id="chart9" class="chart-box"></div></div>
     </section>
 
     <section class="chart-section pure-g panel">
-      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">10</span><h2>Rainfall and flood context</h2><p>This chart adds environmental context. It does not prove that forest reserve change causes floods.</p></div>
-      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart10" class="chart-box"></div></div>
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">06</span><h2>Forest share vs population share</h2><ul><li><strong>Sarawak is over-forested relative to its people</strong> - holds ~32% of national forest reserves but only ~8.6% of population.</li><li><strong>Selangor is the starkest mismatch</strong> - home to ~20% of Malaysia's population but just ~2% of its forest reserves.</li></ul></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart7" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">07</span><h2>Flood rate heatmap</h2><ul><li><strong>Pahang, Kedah, Negeri Sembilan, and Terengganu faced repeated heavy flooding</strong> - each shows multiple dark-orange years across 2003-2010.</li><li><strong>2006-2009 was the broadest high-flood period</strong> - many states intensified at the same time, showing that severe flooding was widespread rather than isolated.</li></ul></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart5" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel highlight">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">08</span><h2>District flood frequency map</h2><ul><li><strong>Pahang is the clearest hotspot</strong> - Jerantut, Maran, Pekan, and Temerloh each recorded flooding in <strong>7 of 8 years</strong>, showing repeated district-level exposure within one state.</li></ul></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><p class="data-note"><strong>Data note:</strong> District point locations are estimated from the average coordinates of towns in each district. Dot size counts how many years each district recorded flooding between 2003 and 2010.</p><div id="chart11" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">09</span><h2>Pahang flood persistence vs tree cover</h2><ul><li><strong>High tree cover did not prevent repeated flooding</strong> - Jerantut, Pekan, and Temerloh all have about 89-97% tree cover, yet each still flooded in <strong>7 of 8 years</strong>.</li><li><strong>Kuantan is the main contrast case</strong> - it has the lowest tree-cover share at about 83% and fewer flood years (<strong>3 of 8</strong>), so the chart does not show a simple "less tree cover = more flooding" pattern.</li></ul></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><div id="chart15" class="chart-box"></div></div>
+    </section>
+
+    <section class="chart-section pure-g panel">
+      <div class="pure-u-1 pure-u-lg-1-3 chart-text"><span class="step">10</span><h2>National forest cover vs forest reserve area</h2><ul><li><strong>Both forest cover and reserve area declined together.</strong></li><li><strong>The gap between them narrowed over time.</strong></li></ul></div>
+      <div class="pure-u-1 pure-u-lg-2-3"><p class="data-note"><strong>Data note:</strong> Forest reserve area is from Malaysia&#8217;s official gazetted records; national forest cover is from the global deforestation dataset. Both are indexed to 2003 = 100 for direct comparison.</p><div id="chart8" class="chart-box"></div></div>
     </section>
 
     <section class="panel conclusion">
       <h2>Key takeaway</h2>
-      <p>Malaysia’s forest reserve story is uneven. A national trend is useful, but the state-level view reveals the real geography of forest protection: where reserve areas are concentrated, where they changed most, and how these patterns relate to people and environmental pressure.</p>
+      <p>Malaysia's forest reserve story is uneven. A national trend is useful, but the state-level view reveals the real geography of forest protection: where reserve areas are concentrated, where they changed most, and how these patterns relate to people and environmental pressure.</p>
     </section>
 
     <footer class="footer">
-      <p><strong>Author:</strong> Guo Weiyi &nbsp; | &nbsp; <strong>Date:</strong> 20/05/2026</p>
-      <p><strong>Data files used:</strong> forest_reserve.csv, forest_reserve_state.csv, population.csv, state_town_coordinates.csv, flood_rainfall_state_year.csv.</p>
+      <p><strong>Author:</strong> Guo Weiyi &nbsp; | &nbsp; <strong>Date:</strong> 29/05/2026</p>
+      <p><strong>Data files used:</strong> forest_reserve.csv, forest_reserve_state.csv, forest_reserve_state_2021.csv, state_forest_change.csv, forest_population_2021.csv, flood_rainfall_forest_2003_2010.csv, district_flood_frequency_map.csv (created from district flood records and mapped coordinates), pahang_district_treecover_flood.csv (created from geoBoundaries ADM2 GeoJSON and Hansen tree-cover raster using district-level overlay), national_forest_deforestation_combined.csv, malaysia_states.geojson.</p>
+      <p><strong>Original data sources:</strong> <a href="https://data.gov.my/data-catalogue/forest_reserve" target="_blank" rel="noopener noreferrer">forest_reserve</a>, <a href="https://data.gov.my/data-catalogue/forest_reserve_state" target="_blank" rel="noopener noreferrer">forest_reserve_state</a>, <a href="https://www.kaggle.com/datasets/thajegan76/malaysia-population" target="_blank" rel="noopener noreferrer">population</a>, <a href="https://www.kaggle.com/datasets/mypapit/malaysiancity" target="_blank" rel="noopener noreferrer">state_land_area</a>, <a href="https://www.kaggle.com/datasets/rajatjurel/malaysia-flood-dataset2000-2010" target="_blank" rel="noopener noreferrer">Malaysia flood dataset</a>, <a href="https://www.kaggle.com/datasets/chiticariucristian/deforestation-and-forest-loss" target="_blank" rel="noopener noreferrer">global deforestation 2000 to 2025</a>.</p>
+      <p><strong>Map and tree-cover sources:</strong> <a href="https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/9469f09592ced973a3448cf66b6100b741b64c0d/releaseData/gbOpen/MYS/ADM2/geoBoundaries-MYS-ADM2.geojson" target="_blank" rel="noopener noreferrer">geoBoundaries Malaysia ADM2</a>, <a href="https://glad.earthengine.app/view/global-forest-change" target="_blank" rel="noopener noreferrer">Hansen Global Forest Change</a>.</p>
     </footer>
   </main>
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=flood-forest-bubble-size"></script>
 </body>
 </html>

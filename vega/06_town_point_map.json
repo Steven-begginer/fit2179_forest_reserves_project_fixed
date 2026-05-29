@@ -1,75 +1,94 @@
-{
+﻿{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
-  "height": 450,
+  "height": 460,
   "data": {
-    "url": "data/state_town_coordinates.csv"
+    "url": "data/state_forest_change.csv"
   },
+  "transform": [
+    { "calculate": "toNumber(datum.change_percent)", "as": "change_pct_num" },
+    { "calculate": "datum.change_pct_num >= 0 ? 'Increase' : 'Decrease'", "as": "trend" }
+  ],
   "title": {
-    "text": "Geographic distribution of towns in Malaysia",
-    "subtitle": "Point map based on latitude and longitude from the town coordinate dataset."
+    "text": "Forest reserve endpoint change by state: 2003 vs 2021 (%)",
+    "subtitle": "Blue bars = 2021 is higher than 2003. Orange bars = 2021 is lower than 2003."
   },
-  "projection": {
-    "type": "mercator",
-    "center": [
-      109.5,
-      4.2
-    ],
-    "scale": 1450
-  },
-  "mark": {
-    "type": "circle",
-    "filled": true,
-    "opacity": 0.55,
-    "size": 18
-  },
-  "encoding": {
-    "longitude": {
-      "field": "Lon",
-      "type": "quantitative"
-    },
-    "latitude": {
-      "field": "Lat",
-      "type": "quantitative"
-    },
-    "color": {
-      "field": "States_clean",
-      "type": "nominal",
-      "legend": {
-        "title": "State"
+  "layer": [
+    {
+      "mark": { "type": "rule", "color": "#94a3b8", "strokeDash": [3, 2], "strokeWidth": 1 },
+      "encoding": {
+        "x": { "datum": 0, "type": "quantitative" }
       }
     },
-    "tooltip": [
-      {
-        "field": "Town",
-        "type": "nominal"
-      },
-      {
-        "field": "District",
-        "type": "nominal"
-      },
-      {
-        "field": "States_clean",
-        "type": "nominal",
-        "title": "State"
-      },
-      {
-        "field": "Lat",
-        "type": "quantitative",
-        "format": ".3f"
-      },
-      {
-        "field": "Lon",
-        "type": "quantitative",
-        "format": ".3f"
+    {
+      "mark": { "type": "bar", "cornerRadiusEnd": 3 },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": { "field": "change_pct_num", "order": "descending" },
+          "title": null
+        },
+        "x": {
+          "field": "change_pct_num",
+          "type": "quantitative",
+          "title": "Change in forest reserve area (%)"
+        },
+        "color": {
+          "field": "trend",
+          "type": "nominal",
+          "legend": { "title": null, "orient": "bottom" },
+          "scale": {
+            "domain": ["Increase", "Decrease"],
+            "range": ["#0072B2", "#E69F00"]
+          }
+        },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "change_pct_num", "type": "quantitative", "format": ".1f", "title": "Change (%)" },
+          { "field": "area_2003", "type": "quantitative", "format": ",.0f", "title": "Forest area 2003 (ha)" },
+          { "field": "area_2021", "type": "quantitative", "format": ",.0f", "title": "Forest area 2021 (ha)" },
+          { "field": "change_area", "type": "quantitative", "format": ",.0f", "title": "Change (ha)" },
+          { "field": "direction", "type": "nominal", "title": "Trend" }
+        ]
       }
-    ]
-  },
+    },
+    {
+      "mark": { "type": "text", "align": "left", "dx": 4, "fontSize": 10, "fontWeight": 600 },
+      "transform": [
+        { "filter": "datum.change_pct_num > 0" }
+      ],
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": { "field": "change_pct_num", "order": "descending" }
+        },
+        "x": { "field": "change_pct_num", "type": "quantitative" },
+        "text": { "field": "change_pct_num", "type": "quantitative", "format": "+.1f" },
+        "color": { "value": "#0072B2" }
+      }
+    },
+    {
+      "mark": { "type": "text", "align": "right", "dx": -4, "fontSize": 10, "fontWeight": 600 },
+      "transform": [
+        { "filter": "datum.change_pct_num < 0" }
+      ],
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": { "field": "change_pct_num", "order": "descending" }
+        },
+        "x": { "field": "change_pct_num", "type": "quantitative" },
+        "text": { "field": "change_pct_num", "type": "quantitative", "format": ".1f" },
+        "color": { "value": "#b45309" }
+      }
+    }
+  ],
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": { "stroke": null },
     "axis": {
       "labelFont": "Inter, Arial",
       "titleFont": "Inter, Arial",

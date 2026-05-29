@@ -3,60 +3,127 @@
   "description": "National forest reserve area trend in Malaysia.",
   "width": "container",
   "height": 330,
-  "data": {
-    "url": "data/forest_reserve.csv"
-  },
+  "data": { "url": "data/forest_reserve.csv" },
+  "transform": [
+    {
+      "filter": "isValid(datum.area_million_ha) && datum.area_million_ha > 0"
+    },
+    {
+      "joinaggregate": [
+        { "op": "max", "field": "area_million_ha", "as": "max_area_million_ha" },
+        { "op": "min", "field": "area_million_ha", "as": "min_area_million_ha" }
+      ]
+    },
+    {
+      "calculate": "datum.area_million_ha == datum.max_area_million_ha ? 'Highest' : datum.area_million_ha == datum.min_area_million_ha ? 'Lowest' : datum.year == 2021 ? 'Latest' : 'Other years'",
+      "as": "year_highlight"
+    }
+  ],
   "title": {
-    "text": "Malaysia’s total forest reserve area, 2003–2021",
-    "subtitle": "Area is shown in million hectares."
+    "text": "Malaysia's Total Forest Reserve Area Trend, 2003-2021"
   },
   "layer": [
     {
       "mark": {
         "type": "line",
-        "point": true,
-        "strokeWidth": 3
+        "strokeWidth": 3,
+        "color": "#0072B2"
       },
       "encoding": {
         "x": {
           "field": "year",
           "type": "ordinal",
-          "title": "Year"
+          "title": "Year",
+          "axis": { "labelAngle": -45 }
         },
         "y": {
           "field": "area_million_ha",
           "type": "quantitative",
           "title": "Forest reserve area (million ha)",
-          "scale": {
-            "zero": false
-          }
+          "scale": { "zero": false }
         },
         "tooltip": [
-          {
-            "field": "year",
-            "type": "ordinal"
-          },
-          {
-            "field": "area",
-            "type": "quantitative",
-            "format": ",.0f",
-            "title": "Area (ha)"
-          },
-          {
-            "field": "area_million_ha",
-            "type": "quantitative",
-            "format": ".2f",
-            "title": "Area (million ha)"
-          }
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "area", "type": "quantitative", "format": ",.0f", "title": "Area (ha)" },
+          { "field": "area_million_ha", "type": "quantitative", "format": ".2f", "title": "Area (million ha)" }
         ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 70,
+        "stroke": "#ffffff",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": { "labelAngle": -45 }
+        },
+        "y": {
+          "field": "area_million_ha",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "year_highlight",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": ["Highest", "Lowest", "Latest", "Other years"],
+            "range": ["#1d4ed8", "#E69F00", "#93c5fd", "#93c5fd"]
+          },
+          "legend": { "orient": "bottom", "values": ["Highest", "Lowest"] }
+        },
+        "tooltip": [
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "area", "type": "quantitative", "format": ",.0f", "title": "Area (ha)" },
+          { "field": "area_million_ha", "type": "quantitative", "format": ".2f", "title": "Area (million ha)" },
+          { "field": "year_highlight", "type": "nominal", "title": "Highlight" }
+        ]
+      }
+    },
+    {
+      "transform": [
+        { "filter": "datum.year_highlight == 'Highest'" }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -16,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#0072B2"
+      },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "area_million_ha", "type": "quantitative" },
+        "text": { "field": "area_million_ha", "type": "quantitative", "format": ".2f" }
+      }
+    },
+    {
+      "transform": [
+        { "filter": "datum.year_highlight == 'Lowest'" }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -16,
+        "dx": -32,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#E69F00"
+      },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "area_million_ha", "type": "quantitative" },
+        "text": { "field": "area_million_ha", "type": "quantitative", "format": ".2f" }
       }
     }
   ],
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": { "stroke": null },
     "axis": {
       "labelFont": "Inter, Arial",
       "titleFont": "Inter, Arial",
@@ -80,10 +147,5 @@
       "subtitleColor": "#64748b",
       "subtitleFontSize": 12
     }
-  },
-  "transform": [
-    {
-      "filter": "isValid(datum.area_million_ha) && datum.area_million_ha > 0"
-    }
-  ]
+  }
 }

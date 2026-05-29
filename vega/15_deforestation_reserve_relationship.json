@@ -1,0 +1,63 @@
+﻿{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 380,
+  "data": { "url": "data/national_forest_deforestation_combined.csv" },
+  "title": {
+    "text": "National Forest Cover vs Forest Reserve Area (2003-2021)",
+    "subtitle": "Both series indexed to 100 in 2003. A falling line means decline relative to the baseline."
+  },
+  "transform": [
+    {
+      "fold": ["forest_reserve_index", "forest_cover_index"],
+      "as": ["series", "index_value"]
+    },
+    {
+      "calculate": "datum.series === 'forest_reserve_index' ? 'Forest Reserve Area' : 'National Forest Cover'",
+      "as": "series_label"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5,
+        "point": { "filled": true, "size": 60, "stroke": "#ffffff", "strokeWidth": 1 }
+      },
+      "encoding": {
+        "x": {
+          "field": "year", "type": "quantitative",
+          "title": "Year",
+          "axis": { "format": "d", "values": [2003,2005,2007,2009,2012,2014,2016,2018,2020,2021], "labelAngle": 0 },
+          "scale": { "zero": false }
+        },
+        "y": {
+          "field": "index_value", "type": "quantitative",
+          "title": "Index (2003 = 100)",
+          "scale": { "zero": false }
+        },
+        "color": {
+          "field": "series_label", "type": "nominal",
+          "title": "Series",
+          "scale": {
+            "domain": ["Forest Reserve Area", "National Forest Cover"],
+            "range": ["#0072B2", "#E69F00"]
+          },
+          "legend": { "orient": "bottom", "direction": "horizontal" }
+        },
+        "tooltip": [
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "series_label", "type": "nominal", "title": "Series" },
+          { "field": "index_value", "type": "quantitative", "format": ".2f", "title": "Index (2003=100)" }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": { "stroke": null },
+    "axis": { "labelFont": "Inter, Arial", "titleFont": "Inter, Arial", "gridColor": "#e8edf0", "labelColor": "#334155", "titleColor": "#0f172a" },
+    "legend": { "labelFont": "Inter, Arial", "titleFont": "Inter, Arial", "labelColor": "#334155", "titleColor": "#0f172a" },
+    "title": { "font": "Inter, Arial", "fontSize": 16, "fontWeight": 700, "anchor": "start", "color": "#0f172a", "subtitleFont": "Inter, Arial", "subtitleColor": "#64748b", "subtitleFontSize": 12 }
+  }
+}

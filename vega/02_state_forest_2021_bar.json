@@ -1,84 +1,107 @@
-{
+﻿{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
-  "height": 430,
-  "data": {
-    "url": "data/forest_reserve_state.csv"
+  "height": 460,
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [1, 7],
+    "rotate": [-109.5, 0, 0],
+    "center": [0, 4],
+    "scale": 1600
   },
-  "transform": [
+  "title": {
+    "text": "Forest Coverage Across Malaysian States (2021)",
+    "subtitle": "Choropleth values are normalized as percentages of the 2021 national total."
+  },
+  "layer": [
     {
-      "filter": "datum.year == 2021"
+      "data": {
+        "sphere": true
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#bfdbfe",
+        "stroke": null
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eef2f7",
+        "stroke": "#cbd5e1",
+        "strokeWidth": 0.4
+      }
+    },
+    {
+      "data": {
+        "url": "data/malaysia_states.geojson",
+        "format": { "type": "json", "property": "features" }
+      },
+      "transform": [
+        {
+          "calculate": "replace(datum.properties.name, 'WP K Lumpur', 'W.P. Kuala Lumpur')",
+          "as": "state_join"
+        },
+        {
+          "lookup": "state_join",
+          "from": {
+            "data": { "url": "data/forest_reserve_state_2021.csv" },
+            "key": "state",
+            "fields": ["area", "year", "state_area_ha"]
+          }
+        },
+        {
+          "calculate": "isValid(datum.area) && datum.state_area_ha > 0 ? datum.area / datum.state_area_ha * 100 : null",
+          "as": "reserve_pct_state"
+        },
+        {
+          "calculate": "isValid(datum.reserve_pct_state) ? datum.reserve_pct_state : 0",
+          "as": "area_share_fill"
+        },
+        {
+          "calculate": "isValid(datum.area) ? datum.area : null",
+          "as": "area_tooltip"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "color": {
+          "field": "area_share_fill",
+          "type": "quantitative",
+          "title": "Forest reserve as % of state area",
+          "scale": { "scheme": "blues" }
+        },
+        "tooltip": [
+          { "field": "state_join", "type": "nominal", "title": "State" },
+          { "field": "reserve_pct_state", "type": "quantitative", "format": ".2f", "title": "Reserve as % of state area" },
+          { "field": "area_tooltip", "type": "quantitative", "format": ",.0f", "title": "Area (ha)" }
+        ]
+      }
     }
   ],
-  "title": {
-    "text": "Which states held the most forest reserve area in 2021?",
-    "subtitle": "Ranked by forest reserve area in hectares."
-  },
-  "mark": {
-    "type": "bar",
-    "cornerRadiusEnd": 3
-  },
-  "encoding": {
-    "y": {
-      "field": "state",
-      "type": "nominal",
-      "sort": "-x",
-      "title": null
-    },
-    "x": {
-      "field": "area",
-      "type": "quantitative",
-      "title": "Forest reserve area (ha)"
-    },
-    "color": {
-      "field": "area",
-      "type": "quantitative",
-      "legend": null,
-      "scale": {
-        "scheme": "greens"
-      }
-    },
-    "tooltip": [
-      {
-        "field": "state",
-        "type": "nominal",
-        "title": "State"
-      },
-      {
-        "field": "area",
-        "type": "quantitative",
-        "format": ",.0f",
-        "title": "Area (ha)"
-      }
-    ]
-  },
   "config": {
-    "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "background": "#bfdbfe",
+    "view": { "stroke": null, "fill": "#bfdbfe" },
     "axis": {
-      "labelFont": "Inter, Arial",
-      "titleFont": "Inter, Arial",
-      "gridColor": "#e8edf0",
-      "labelColor": "#334155",
-      "titleColor": "#0f172a"
+      "labelFont": "Inter, Arial", "titleFont": "Inter, Arial",
+      "gridColor": "#e8edf0", "labelColor": "#334155", "titleColor": "#0f172a"
     },
     "legend": {
-      "labelFont": "Inter, Arial",
-      "titleFont": "Inter, Arial",
-      "labelColor": "#334155",
-      "titleColor": "#0f172a"
+      "labelFont": "Inter, Arial", "titleFont": "Inter, Arial",
+      "labelColor": "#334155", "titleColor": "#0f172a", "orient": "bottom"
     },
     "title": {
-      "font": "Inter, Arial",
-      "fontSize": 18,
-      "fontWeight": 700,
-      "anchor": "start",
-      "color": "#0f172a",
-      "subtitleFont": "Inter, Arial",
-      "subtitleColor": "#64748b",
-      "subtitleFontSize": 12
+      "font": "Inter, Arial", "fontSize": 18, "fontWeight": 700,
+      "anchor": "start", "color": "#0f172a",
+      "subtitleFont": "Inter, Arial", "subtitleColor": "#64748b", "subtitleFontSize": 12
     }
   }
 }

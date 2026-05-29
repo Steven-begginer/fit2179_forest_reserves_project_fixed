@@ -1,0 +1,95 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 380,
+  "data": { "url": "data/forest_reserve_state.csv" },
+  "transform": [
+    {
+      "filter": "datum.year != 2010 && datum.year != 2011"
+    },
+    {
+      "calculate": "datum.state == 'Sarawak' || datum.state == 'Sabah' || datum.state == 'Pahang' || datum.state == 'Perak' || datum.state == 'Kelantan' || datum.state == 'Terengganu' ? datum.state : 'Other states'",
+      "as": "state_group"
+    },
+    {
+      "aggregate": [
+        { "op": "sum", "field": "area_million_ha", "as": "forest_area_million_ha" }
+      ],
+      "groupby": ["year", "state_group"]
+    }
+  ],
+  "title": {
+    "text": "Which States Make Up Malaysia's Forest Reserve Total?"
+  },
+  "mark": {
+    "type": "area",
+    "opacity": 0.9,
+    "line": { "color": "#ffffff", "strokeWidth": 0.6 }
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": "Year",
+      "scale": { "zero": false },
+      "axis": {
+        "format": "d",
+        "values": [2003, 2005, 2007, 2009, 2012, 2014, 2016, 2018, 2020, 2021],
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "forest_area_million_ha",
+      "type": "quantitative",
+      "stack": "zero",
+      "title": "Forest reserve area (million ha)",
+      "axis": { "format": ".1f" }
+    },
+    "color": {
+      "field": "state_group",
+      "type": "nominal",
+      "title": "State group",
+      "scale": {
+        "domain": ["Sarawak", "Sabah", "Pahang", "Perak", "Kelantan", "Terengganu", "Other states"],
+        "range": ["#0072B2", "#56B4E9", "#E69F00", "#7C3AED", "#F0E442", "#B048C8", "#94a3b8"]
+      },
+      "legend": { "orient": "bottom", "columns": 4 }
+    },
+    "order": {
+      "field": "state_group",
+      "sort": "descending"
+    },
+    "tooltip": [
+      { "field": "year", "type": "ordinal", "title": "Year" },
+      { "field": "state_group", "type": "nominal", "title": "State group" },
+      { "field": "forest_area_million_ha", "type": "quantitative", "format": ".2f", "title": "Forest reserve area (M ha)" }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": { "stroke": null },
+    "axis": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "gridColor": "#e8edf0",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "title": {
+      "font": "Inter, Arial",
+      "fontSize": 16,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#0f172a",
+      "subtitleFont": "Inter, Arial",
+      "subtitleColor": "#64748b",
+      "subtitleFontSize": 12
+    }
+  }
+}

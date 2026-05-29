@@ -1,77 +1,120 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
-  "height": 430,
-  "data": {
-    "url": "data/population.csv"
-  },
+  "height": 470,
+  "data": { "url": "data/forest_population_2021.csv" },
   "transform": [
     {
-      "filter": "datum.state != 'Malaysia'"
+      "joinaggregate": [
+        { "op": "sum", "field": "forest_area_2021", "as": "total_forest" },
+        { "op": "sum", "field": "pop", "as": "total_pop" }
+      ]
+    },
+    { "calculate": "datum.forest_area_2021 / datum.total_forest * 100", "as": "forest_share" },
+    { "calculate": "datum.pop / datum.total_pop * 100", "as": "population_share" },
+    { "calculate": "datum.forest_share - datum.population_share", "as": "share_gap" },
+    { "calculate": "abs(datum.share_gap)", "as": "share_gap_abs" },
+    { "calculate": "(datum.forest_share + datum.population_share) / 2", "as": "share_midpoint" },
+    {
+      "calculate": "datum.share_gap_abs < 0.35 ? datum.share_midpoint - 0.2 : datum.forest_share",
+      "as": "forest_share_display"
     },
     {
-      "calculate": "datum.pop / 1000000",
-      "as": "population_million"
+      "calculate": "datum.share_gap_abs < 0.35 ? datum.share_midpoint + 0.2 : datum.population_share",
+      "as": "population_share_display"
+    },
+    {
+      "fold": ["forest_share", "population_share"],
+      "as": ["share_type", "share_value"]
+    },
+    {
+      "calculate": "datum.share_type == 'forest_share' ? 'Forest share' : 'Population share'",
+      "as": "share_label"
+    },
+    {
+      "calculate": "datum.share_type == 'forest_share' ? datum.forest_share_display : datum.population_share_display",
+      "as": "share_value_display"
     }
   ],
   "title": {
-    "text": "Population context by state",
-    "subtitle": "Forest reserve pressure is easier to understand when population is visible."
+    "text": "Forest Share vs Population Share by State (2021)"
   },
-  "mark": {
-    "type": "bar",
-    "cornerRadiusEnd": 3
-  },
-  "encoding": {
-    "y": {
-      "field": "state",
-      "type": "nominal",
-      "sort": "-x",
-      "title": null
-    },
-    "x": {
-      "field": "population_million",
-      "type": "quantitative",
-      "title": "Population (million people)"
-    },
-    "color": {
-      "field": "population_million",
-      "type": "quantitative",
-      "legend": null,
-      "scale": {
-        "scheme": "blues"
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "stroke": "#cbd5e1",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": { "field": "share_gap", "order": "descending" },
+          "title": null
+        },
+        "x": {
+          "field": "forest_share_display",
+          "type": "quantitative",
+          "title": "Share of national total (%)",
+          "scale": { "domain": [0, 35] },
+          "axis": { "format": ".0f", "values": [0, 5, 10, 15, 20, 25, 30, 35] }
+        },
+        "x2": { "field": "population_share_display" },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "forest_share", "type": "quantitative", "format": ".1f", "title": "Forest share (%)" },
+          { "field": "population_share", "type": "quantitative", "format": ".1f", "title": "Population share (%)" },
+          { "field": "share_gap", "type": "quantitative", "format": "+.1f", "title": "Forest minus population share (pp)" }
+        ]
       }
     },
-    "tooltip": [
-      {
-        "field": "state",
-        "type": "nominal"
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 90,
+        "stroke": "#ffffff",
+        "strokeWidth": 1
       },
-      {
-        "field": "pop",
-        "type": "quantitative",
-        "format": ",.0f",
-        "title": "Population"
-      },
-      {
-        "field": "pop_18",
-        "type": "quantitative",
-        "format": ",.0f",
-        "title": "Age 18+"
-      },
-      {
-        "field": "pop_60",
-        "type": "quantitative",
-        "format": ",.0f",
-        "title": "Age 60+"
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": { "field": "share_gap", "order": "descending" },
+          "title": null
+        },
+        "x": {
+          "field": "share_value_display",
+          "type": "quantitative",
+          "title": "Share of national total (%)",
+          "scale": { "domain": [0, 35] },
+          "axis": { "format": ".0f", "values": [0, 5, 10, 15, 20, 25, 30, 35] }
+        },
+        "color": {
+          "field": "share_label",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": ["Forest share", "Population share"],
+            "range": ["#0072B2", "#E69F00"]
+          },
+          "legend": { "orient": "bottom" }
+        },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "share_label", "type": "nominal", "title": "Measure" },
+          { "field": "share_value", "type": "quantitative", "format": ".1f", "title": "Share (%)" },
+          { "field": "share_gap", "type": "quantitative", "format": "+.1f", "title": "Forest minus population share (pp)" },
+          { "field": "forest_area_2021", "type": "quantitative", "format": ",.0f", "title": "Forest area 2021 (ha)" },
+          { "field": "pop", "type": "quantitative", "format": ",.0f", "title": "Population" }
+        ]
       }
-    ]
-  },
+    }
+  ],
   "config": {
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": { "stroke": null },
     "axis": {
       "labelFont": "Inter, Arial",
       "titleFont": "Inter, Arial",
@@ -87,7 +130,7 @@
     },
     "title": {
       "font": "Inter, Arial",
-      "fontSize": 18,
+      "fontSize": 16,
       "fontWeight": 700,
       "anchor": "start",
       "color": "#0f172a",

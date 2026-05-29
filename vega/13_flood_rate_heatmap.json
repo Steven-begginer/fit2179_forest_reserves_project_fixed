@@ -1,0 +1,69 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 420,
+  "data": { "url": "data/flood_rainfall_forest_2003_2010.csv" },
+  "title": {
+    "text": "Flood Rate Heatmap by State and Year"
+  },
+  "mark": { "type": "rect", "stroke": "#ffffff", "strokeWidth": 1 },
+  "encoding": {
+    "x": {
+      "field": "YEAR",
+      "type": "ordinal",
+      "title": "Year",
+      "sort": ["2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010"],
+      "axis": { "labelAngle": 0 }
+    },
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": null,
+      "sort": { "field": "flood_rate_percent", "op": "mean", "order": "descending" }
+    },
+    "color": {
+      "field": "flood_rate_percent",
+      "type": "quantitative",
+      "title": "Flood rate (%)",
+      "scale": {
+        "domain": [0, 100],
+        "range": ["#fff7ed", "#fdba74", "#f97316", "#9a3412"]
+      },
+      "legend": { "orient": "bottom", "format": ".0f" }
+    },
+    "tooltip": [
+      { "field": "state", "type": "nominal", "title": "State" },
+      { "field": "YEAR", "type": "ordinal", "title": "Year" },
+      { "field": "flood_rate_percent", "type": "quantitative", "format": ".1f", "title": "Flood rate (%)" },
+      { "field": "flood_records", "type": "quantitative", "format": ",.0f", "title": "Flooded districts" },
+      { "field": "district_records", "type": "quantitative", "format": ",.0f", "title": "Districts recorded" }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": { "stroke": null },
+    "axis": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "grid": false,
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "title": {
+      "font": "Inter, Arial",
+      "fontSize": 16,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#0f172a",
+      "subtitleFont": "Inter, Arial",
+      "subtitleColor": "#64748b",
+      "subtitleFontSize": 12
+    }
+  }
+}

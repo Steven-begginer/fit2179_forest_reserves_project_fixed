@@ -1,0 +1,186 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 420,
+  "data": { "url": "data/pahang_district_treecover_flood.csv" },
+  "title": {
+    "text": "Pahang District Flood Persistence vs Tree Cover Share",
+    "subtitle": [
+      "Each point is one Pahang district.",
+      "X shows district tree-cover share from the Hansen 2000 tree-cover raster; Y counts flood-record years from 2003-2010."
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeDash": [5, 4],
+        "stroke": "#94a3b8"
+      },
+      "encoding": {
+        "y": { "datum": 4, "type": "quantitative" }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 165,
+        "opacity": 0.9,
+        "stroke": "#ffffff",
+        "strokeWidth": 1.4
+      },
+      "encoding": {
+        "x": {
+          "field": "tree_cover_share_30pct",
+          "type": "quantitative",
+          "title": "District tree cover share, canopy >= 30% (%)",
+          "scale": { "domain": [80, 100] },
+          "axis": { "format": ".0f" }
+        },
+        "y": {
+          "field": "flood_years",
+          "type": "quantitative",
+          "title": "Flood years recorded (out of 8)",
+          "scale": { "domain": [0, 8.5] },
+          "axis": { "tickMinStep": 1 }
+        },
+        "color": {
+          "field": "district",
+          "type": "nominal",
+          "title": "District",
+          "scale": {
+            "domain": ["Kuantan", "Temerloh", "Rompin", "Pekan", "Jerantut", "Maran"],
+            "range": ["#DDD6FE", "#FB923C", "#9333EA", "#2563EB", "#0284C7", "#FCD34D"]
+          },
+          "legend": { "orient": "bottom" }
+        },
+        "tooltip": [
+          { "field": "district", "type": "nominal", "title": "District" },
+          { "field": "district_code", "type": "nominal", "title": "district_code" },
+          { "field": "flood_years", "type": "quantitative", "format": ".0f", "title": "Flood years recorded" },
+          { "field": "flood_frequency_percent", "type": "quantitative", "format": ".1f", "title": "Flood frequency (%)" },
+          { "field": "tree_cover_share_30pct", "type": "quantitative", "format": ".2f", "title": "Tree cover share, >=30% canopy (%)" },
+          { "field": "mean_tree_cover_percent", "type": "quantitative", "format": ".2f", "title": "Mean tree cover (%)" },
+          { "field": "district_area_ha", "type": "quantitative", "format": ",.0f", "title": "District area used (ha)" },
+          { "field": "tree_cover_area_30pct_ha", "type": "quantitative", "format": ",.0f", "title": "Tree cover area, >=30% canopy (ha)" }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.district != 'Pekan' && datum.district != 'Temerloh'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": 8,
+        "dy": -8,
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "fill": "#0f172a"
+      },
+      "encoding": {
+        "x": {
+          "field": "tree_cover_share_30pct",
+          "type": "quantitative",
+          "scale": { "domain": [80, 100] }
+        },
+        "y": {
+          "field": "flood_years",
+          "type": "quantitative",
+          "scale": { "domain": [0, 8.5] }
+        },
+        "text": { "field": "district", "type": "nominal" }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.district == 'Pekan'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": -10,
+        "dy": -12,
+        "align": "right",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "fill": "#0f172a"
+      },
+      "encoding": {
+        "x": {
+          "field": "tree_cover_share_30pct",
+          "type": "quantitative",
+          "scale": { "domain": [80, 100] }
+        },
+        "y": {
+          "field": "flood_years",
+          "type": "quantitative",
+          "scale": { "domain": [0, 8.5] }
+        },
+        "text": { "field": "district", "type": "nominal" }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.district == 'Temerloh'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": 10,
+        "dy": 12,
+        "baseline": "top",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "fill": "#0f172a"
+      },
+      "encoding": {
+        "x": {
+          "field": "tree_cover_share_30pct",
+          "type": "quantitative",
+          "scale": { "domain": [80, 100] }
+        },
+        "y": {
+          "field": "flood_years",
+          "type": "quantitative",
+          "scale": { "domain": [0, 8.5] }
+        },
+        "text": { "field": "district", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": { "stroke": null },
+    "axis": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "gridColor": "#e8edf0",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial",
+      "titleFont": "Inter, Arial",
+      "labelColor": "#334155",
+      "titleColor": "#0f172a",
+      "symbolStrokeColor": "#ffffff",
+      "symbolStrokeWidth": 1
+    },
+    "title": {
+      "font": "Inter, Arial",
+      "fontSize": 16,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#0f172a",
+      "subtitleFont": "Inter, Arial",
+      "subtitleColor": "#64748b",
+      "subtitleFontSize": 12
+    }
+  }
+}

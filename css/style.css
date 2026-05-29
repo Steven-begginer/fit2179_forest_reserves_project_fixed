@@ -8,36 +8,38 @@
   --green: #166534;
   --green-soft: #dcfce7;
   --amber-soft: #fff7ed;
+  --font-body: Inter, Arial, sans-serif;
+  --font-title: Merriweather, "Times New Roman", serif;
 }
 body {
   margin: 0;
-  font-family: Inter, Arial, sans-serif;
+  font-family: var(--font-body);
   background: radial-gradient(circle at top left, #e9f7df, transparent 30%), var(--bg);
   color: var(--ink);
   line-height: 1.65;
 }
 .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-.hero { padding: 72px 0 48px; border-bottom: 1px solid var(--line); }
+.hero { padding: 48px 0 28px; border-bottom: 1px solid var(--line); }
 .eyebrow { color: var(--green); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: 0.78rem; }
-h1 { max-width: 920px; font-size: clamp(2.4rem, 6vw, 5.2rem); line-height: 0.95; margin: 8px 0 24px; letter-spacing: -0.06em; }
-.lead { max-width: 850px; font-size: 1.18rem; color: #334155; }
+h1 { max-width: 920px; font-size: clamp(2.4rem, 6vw, 5.2rem); line-height: 0.95; margin: 8px 0 24px; letter-spacing: -0.06em; font-family: var(--font-title); }
+.lead { max-width: 850px; font-size: 1.18rem; color: #334155; margin-bottom: 0; }
 .hero-cards { margin-top: 28px; }
 .stat-card { margin: 8px; padding: 18px; background: rgba(255,255,255,.72); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 14px 30px rgba(15,23,42,.06); }
 .stat-label { display:block; color: var(--muted); font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; font-weight:700; margin-bottom: 6px; }
 .stat-card strong { color: var(--green); }
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: 28px; margin: 28px 0; box-shadow: 0 16px 45px rgba(15,23,42,.06); }
-.intro { margin-top: 40px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: 24px; margin: 20px 0; box-shadow: 0 16px 45px rgba(15,23,42,.06); }
+.intro { margin-top: 20px; }
 .chart-section { align-items: center; }
-.chart-text { padding-right: 26px; }
-.chart-text h2, .intro h2, .conclusion h2 { margin-top: 0; font-size: 1.7rem; line-height:1.15; letter-spacing: -0.03em; }
+.chart-text { padding-right: 22px; }
+.chart-text h2, .intro h2, .conclusion h2 { margin-top: 0; font-size: 1.7rem; line-height:1.15; letter-spacing: -0.03em; font-family: var(--font-title); }
 .chart-text p, .intro p, .conclusion p, .footer p { color: #475569; }
 .step { display: inline-grid; place-items:center; width:42px; height:42px; border-radius: 999px; background: var(--green-soft); color: var(--green); font-weight:800; margin-bottom: 12px; }
 .chart-box { width: 100%; min-height: 360px; overflow-x: auto; }
-.highlight { background: linear-gradient(135deg, #ffffff 0%, var(--amber-soft) 100%); }
-.map-panel { background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%); }
-.footer { color: var(--muted); font-size: .9rem; padding: 32px 0 60px; }
+.highlight { background: var(--panel); }
+.map-panel { background: var(--panel); }
+.footer { color: var(--muted); font-size: .9rem; padding: 24px 0 48px; }
 .vega-actions a { margin-right: 10px; color: var(--green); font-size: 0.82rem; }
-@media (max-width: 1023px) { .chart-text { padding-right: 0; margin-bottom: 18px; } .panel { padding: 20px; } }
+@media (max-width: 1023px) { .chart-text { padding-right: 0; margin-bottom: 14px; } .panel { padding: 18px; margin: 16px 0; } .hero { padding: 36px 0 22px; } .intro { margin-top: 16px; } }
 
 .data-note {
   background: #f8fafc;

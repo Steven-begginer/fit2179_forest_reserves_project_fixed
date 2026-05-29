@@ -1,4 +1,4 @@
-# The Changing Map of Malaysia’s Forest Reserves
+# The Changing Map of Malaysia's Forest Reserves
 
 This is a FIT2179 Data Visualisation 2 web visualisation project built with HTML, CSS, Pure.css, JavaScript, Vega-Lite, and Vega-Embed.
 
@@ -14,18 +14,17 @@ Then open `http://localhost:8000/`.
 
 ## Folder structure
 
-- `index.html` — single-page visualisation webpage
-- `css/style.css` — layout, typography, and visual styling
-- `js/main.js` — embeds the Vega-Lite JSON specifications
-- `vega/` — 10 readable Vega-Lite JSON files
-- `data/` — original and derived CSV files
+- `index.html` - single-page visualisation webpage
+- `css/style.css` - layout, typography, and visual styling
+- `js/main.js` - embeds the Vega-Lite JSON specifications
+- `vega/` - 10 readable Vega-Lite JSON files
+- `data/` - 10 runtime data inputs used by the final dashboard, including CSV files and `malaysia_states.geojson`
 
 ## Notes
 
 The flood dataset uses state codes rather than state names, so the rainfall/flood chart is presented as environmental context rather than a direct state-name comparison.
 
-Remember to add original dataset source URLs, authorship, date, and AI acknowledgement before final submission.
-
+The footer in `index.html` includes the final project date and the source links used for submission.
 
 ## Data cleaning note
 

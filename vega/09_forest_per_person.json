@@ -5,9 +5,46 @@
   "data": {
     "url": "data/forest_population_2021.csv"
   },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.forest_ha_per_1000_people)",
+      "as": "forest_per_1000_num"
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank_desc"
+        }
+      ],
+      "sort": [
+        {
+          "field": "forest_per_1000_num",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank_asc"
+        }
+      ],
+      "sort": [
+        {
+          "field": "forest_per_1000_num",
+          "order": "ascending"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.rank_desc == 1 ? 'Highest' : datum.rank_asc == 1 ? 'Lowest' : 'Other'",
+      "as": "bar_highlight"
+    }
+  ],
   "title": {
-    "text": "Forest reserve area per 1,000 people",
-    "subtitle": "This normalises forest reserves by population to make the comparison more public-facing."
+    "text": "Forest reserve area per 1,000 people"
   },
   "mark": {
     "type": "bar",
@@ -26,11 +63,20 @@
       "title": "Forest reserve area (ha per 1,000 people)"
     },
     "color": {
-      "field": "forest_ha_per_1000_people",
-      "type": "quantitative",
+      "field": "bar_highlight",
+      "type": "nominal",
       "legend": null,
       "scale": {
-        "scheme": "tealblues"
+        "domain": [
+          "Other",
+          "Highest",
+          "Lowest"
+        ],
+        "range": [
+          "#60a5fa",
+          "#1d4ed8",
+          "#dbeafe"
+        ]
       }
     },
     "tooltip": [
@@ -55,6 +101,11 @@
         "type": "quantitative",
         "format": ",.0f",
         "title": "Population"
+      },
+      {
+        "field": "bar_highlight",
+        "type": "nominal",
+        "title": "Highlight"
       }
     ]
   },
